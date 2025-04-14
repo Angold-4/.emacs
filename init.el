@@ -168,7 +168,7 @@
 (with-eval-after-load 'evil
   (evil-define-key 'normal org-mode-map (kbd "TAB") #'org-cycle))
 
-(set-face-attribute 'default nil :font "Cascadia Code PL-12")
+(set-face-attribute 'default nil :font "Cascadia Code PL-11")
 (setq ring-bell-function 'ignore)
 (setq visible-bell nil)
 
@@ -284,7 +284,7 @@
 (require 'ox-md)
 (require 'htmlize)
 
-(let ((shell-path (shell-command-to-string "zsh -c 'echo $PATH'")))
+(let ((shell-path (shell-command-to-string "bash -c 'echo $PATH'")))
   (setenv "PATH" shell-path)
   (setq exec-path (split-string shell-path ":")))
 

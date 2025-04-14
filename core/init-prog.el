@@ -37,6 +37,22 @@
       '("/home/awang/.rust_wrappers.sh")
     '("rust-analyzer")))
 
+;; Install prettier-js for TypeScript and JavaScript formatting
+(use-package prettier-js
+  :straight (prettier-js :type git :host github :repo "prettier/prettier-emacs"))
+
+;; Define a function to format the buffer based on major mode
+(defun format-buffer ()
+  "Format the current buffer based on the major mode."
+  (interactive)
+  (cond
+   ((or (eq major-mode 'js-mode) (eq major-mode 'typescript-mode))
+    (prettier-js))
+   ((eglot-managed-p)
+    (eglot-format-buffer))
+   (t
+    (message "No formatter available for this mode."))))
+
 ;; [Eglot] LSP support
 (use-package eglot
   :hook ((c-mode c++-mode rust-mode python-mode java-mode c-ts-mode c++-ts-mode rust-ts-mode python-ts-mode go-mode typescript-mode) . eglot-ensure)
@@ -51,7 +67,7 @@
         eglot-autoshutdown t
         eglot-report-progress 'messages)
   (add-to-list 'eglot-server-programs
-               '((c++-mode c-mode) . ("clangd" "--compile-commands-dir=build/"))
+               '((c++-mode c-mode) . ("clangd" "--compile-commands-dir=build/" "--fallback-style={BasedOnStyle: LLVM, IndentWidth: 4}"))
                '((typescript-mode tsx-ts-mode typescript-ts-mode js-mode js-ts-mode)
                  . ("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs
@@ -154,6 +170,9 @@
         (setq-local eldoc-documentation-functions '(flymake-eldoc-function))
         (eldoc-mode 1)))))
 
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c f") 'format-buffer)))
 
 (use-package eglot-booster
   :straight (:host github :repo "jdtsmith/eglot-booster")
