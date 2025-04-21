@@ -168,7 +168,7 @@
 (with-eval-after-load 'evil
   (evil-define-key 'normal org-mode-map (kbd "TAB") #'org-cycle))
 
-(set-face-attribute 'default nil :font "Cascadia Code PL-11")
+(set-face-attribute 'default nil :font "Cascadia Code PL-13")
 (setq ring-bell-function 'ignore)
 (setq visible-bell nil)
 
@@ -293,6 +293,7 @@
                      'init-straight
                      'init-themes
                      'init-highlight
+                     'init-treemacs
                      'init-prog
                      'init-completion
                      'init-persp

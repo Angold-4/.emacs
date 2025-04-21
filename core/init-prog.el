@@ -5,10 +5,9 @@
    xref-history-storage 'xref-window-local-history)
 
   (defadvice! +xref--push-marker-stack-a (&rest rest)
-              :before '(find-function consult-imenu consult-ripgrep citre-jump)
-              (xref-push-marker-stack (point-marker)))
+    :before '(find-function consult-imenu consult-ripgrep citre-jump)
+    (xref-push-marker-stack (point-marker)))
   )
-
 
 
 (require 'project)
@@ -53,6 +52,7 @@
    (t
     (message "No formatter available for this mode."))))
 
+
 ;; [Eglot] LSP support
 (use-package eglot
   :hook ((c-mode c++-mode rust-mode python-mode java-mode c-ts-mode c++-ts-mode rust-ts-mode python-ts-mode go-mode typescript-mode) . eglot-ensure)
@@ -67,7 +67,7 @@
         eglot-autoshutdown t
         eglot-report-progress 'messages)
   (add-to-list 'eglot-server-programs
-               '((c++-mode c-mode) . ("clangd" "--compile-commands-dir=build/" "--fallback-style={BasedOnStyle: LLVM, IndentWidth: 4}"))
+               '((c++-mode c-mode) . ("clangd" "--compile-commands-dir=build/"))
                '((typescript-mode tsx-ts-mode typescript-ts-mode js-mode js-ts-mode)
                  . ("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs
@@ -86,7 +86,7 @@
   ;; Apply the filter to eglot--hover-info
   (advice-add 'eglot--hover-info :filter-return #'+eglot-filter-hover-info)
 
-;; eglot has it's own strategy by default
+  ;; eglot has it's own strategy by default
   (setq-local eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
   (setq-default eglot-workspace-configuration
                 '((:pyls . (:plugins (:jedi_completion (:fuzzy t))))
@@ -173,6 +173,7 @@
 (add-hook 'prog-mode-hook
           (lambda ()
             (local-set-key (kbd "C-c f") 'format-buffer)))
+
 
 (use-package eglot-booster
   :straight (:host github :repo "jdtsmith/eglot-booster")
