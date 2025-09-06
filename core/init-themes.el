@@ -12,10 +12,16 @@
 ;; (load-theme 'noctilux t)
 ;; (load-theme 'timu-spacegrey t)
 ;; (load-theme 'doom-nord-light t)
+<<<<<<< HEAD
 
 ;; (if (not (display-graphic-p))
     ;; (set-face-background 'default "white")
     ;; (set-face-foreground 'default "black"))
 
+=======
+
+;; (if (not (display-graphic-p))
+ ;; (set-face-background 'default "white"))
+>>>>>>> origin/main
 
 ;; (set-face-background 'default "black")

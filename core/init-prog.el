@@ -52,6 +52,31 @@
    (t
     (message "No formatter available for this mode."))))
 
+(add-hook 'c++-mode-hook
+          (lambda ()
+            (setq c-basic-offset 2       ; base indent = 2
+                  tab-width 2
+                  indent-tabs-mode nil)  ; use spaces, not tabs
+            ;; make the line after a function-open brace indent by 2, not 4
+            (c-set-offset 'defun-block-intro 2)
+            ;; these keep other blocks consistent at 2
+            (c-set-offset 'statement-block-intro 2)
+            (c-set-offset 'brace-list-intro 2)
+            (c-set-offset 'block-open 0)
+            (c-set-offset 'inline-open 0)
+            (c-set-offset 'substatement-open 0)))
+
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (setq c-basic-offset 2
+                  tab-width 2
+                  indent-tabs-mode nil)
+            (c-set-offset 'defun-block-intro 2)
+            (c-set-offset 'statement-block-intro 2)
+            (c-set-offset 'brace-list-intro 2)
+            (c-set-offset 'block-open 0)
+            (c-set-offset 'inline-open 0)
+            (c-set-offset 'substatement-open 0)))
 
 ;; [Eglot] LSP support
 (use-package eglot
