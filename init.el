@@ -217,8 +217,11 @@
 (defun my/copy-to-osx-clipboard (beg end)
   "Copy region to the macOS clipboard using pbcopy."
   (interactive "r")
-  (shell-command-on-region beg end "pbcopy")
+  (if (eq system-type 'darwinalgae)
+    (shell-command-on-region beg end "pbcopy")
+    (shell-command-on-region beg end "clip.exe"))
   (message "Copied to clipboard"))
+
 
 (define-key evil-visual-state-map (kbd "C-y") 'my/copy-to-osx-clipboard)
 
@@ -293,7 +296,6 @@
                      'init-straight
                      'init-themes
                      'init-highlight
-                     'init-treemacs
                      'init-prog
                      'init-completion
                      'init-persp

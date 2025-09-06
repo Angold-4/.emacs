@@ -11,9 +11,11 @@
 
 ;; (load-theme 'noctilux t)
 ;; (load-theme 'timu-spacegrey t)
-(load-theme 'doom-nord-light t)
+;; (load-theme 'doom-nord-light t)
 
-;;(if (not (display-graphic-p))
-;; (set-face-background 'default "black"))
+;; (if (not (display-graphic-p))
+    ;; (set-face-background 'default "white")
+    ;; (set-face-foreground 'default "black"))
+
 
 ;; (set-face-background 'default "black")
